@@ -1,0 +1,4 @@
+model type,model filename,plot filename,epochs,runtime,dev accuracy,train accuracy,batch_size,kernel_size,depth,num_hidden,max_pool_kernel_size,learning_rate,speed_bucket_size,loss_function,input_num_timestamps
+cnn,EC2CrossCNN.1,na,20000,0.0,0.0,0.0,200,6,40,10,6,1e-05,0.1,cross_entropy,36
+cnn,EC2CrossCNN.1,1528136623.9334664User-cac20da1b364,20000,0.1,0.30936330556869507,0.38016799092292786,200,6,40,10,6,1e-05,0.1,cross_entropy,36
+cnn,EC2CrossCNN.1,1528136672.8732896User-cac20da1b364,20000,39228.14633107185,0.30936330556869507,0.38016799092292786,200,6,40,10,6,1e-05,0.1,cross_entropy,36

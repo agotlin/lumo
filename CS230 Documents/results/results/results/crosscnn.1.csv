@@ -1,0 +1,4 @@
+batch_size,data filename,depth,dev accuracy,epochs,input_num_timestamps,kernel_size,learning_rate,loss_function,max_pool_kernel_size,model filename,model type,num_hidden,plot filename,runtime,speed_bucket_size,train accuracy
+10,,40,0.0,10000,36,6,0.0001,cross_entropy,6,crossat.1,cnn,10,na,0.0,0.1,0.0
+10,,40,0.2631579041481018,5000,36,6,0.0001,cross_entropy,6,crossCNN.1,cnn,10,1528097462.4780958User-18c6b0c41c7b,777.2075886726379,0.1,0.7621621489524841
+10,../datasets/quarter-big.csv,40,0.24719101190567017,1000,36,6,0.0001,cross_entropy,6,crosscnn.1,cnn,10,1528108857.2698455User-18c6b0c41c7b,10880.728814601898,0.1,0.2800293564796448

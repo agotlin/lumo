@@ -1,0 +1,2 @@
+model type,model filename,plot filename,data filename,epochs,runtime,dev accuracy,train accuracy,learning_rate,speed_bucket_size,loss_function,input_num_timestamps,label_window_size,evaluation_metric
+FCN,DropOutReducedTo80perc,na,../datasets/TimeSeries_InputVector_15runs.csv,200,0.0,0.0,0.0,0.0001,0.1,categorical_crossentropy,11,5,

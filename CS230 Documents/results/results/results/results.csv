@@ -1,0 +1,5 @@
+model type,model filename,epochs,runtime,dev accuracy,train accuracy,batch_size,kernel_size,depth,num_hidden,max_pool_kernel_size,learning_rate,speed_bucket_size,loss_function,input_num_timestamps
+cnn,a,10,0.0,0.0,0.0,10,6,40,10,6,1e-05,0.5,L1_loss,36
+cnn,a,10,3.9427456855773926,0.5263158082962036,0.4648648500442505,10,6,40,10,6,0.0001,0.5,L1_loss,36
+cnn,a,10,5.10725998878479,0.7368420958518982,0.6540540456771851,10,6,40,10,6,0.0001,0.5,L1_loss,36
+cnn,a,10,5.49567437171936,0.2631579041481018,0.37837839126586914,10,6,40,10,6,0.0001,0.5,L1_loss,36

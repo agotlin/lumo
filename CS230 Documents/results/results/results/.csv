@@ -1,0 +1,5 @@
+model type,model filename,plot filename,data filename,epochs,runtime,dev accuracy,train accuracy,batch_size,kernel_size,depth,num_hidden,max_pool_kernel_size,learning_rate,speed_bucket_size,loss_function,input_num_timestamps
+cnn,test,na,../datasets/tiny-test.csv,100,0.0,0.0,0.0,10,6,40,10,6,1e-05,0.5,cross_entropy,36
+cnn,test,1528244401.3146327User-117b5dba0741,../datasets/tiny-test.csv,100,39.65516567230225,0.3103448152542114,0.2457142919301987,10,6,40,10,6,1e-05,0.5,L1_loss,36
+cnn,test,1528245087.0014474User-117b5dba0741,../datasets/tiny-test.csv,100,248.4677608013153,0.336870014667511,0.3410545587539673,10,6,40,10,6,1e-05,0.5,L2_loss,36
+cnn,test,1528245091.336251User-117b5dba0741,../datasets/tiny-test.csv,100,248.4677608013153,0.336870014667511,0.3410545587539673,10,6,40,10,6,1e-05,0.5,L2_loss,36

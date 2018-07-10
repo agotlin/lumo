@@ -1,0 +1,4 @@
+model type,model filename,plot filename,data filename,epochs,runtime,dev accuracy,train accuracy,learning_rate,speed_bucket_size,loss_function,input_num_timestamps,label_window_size
+FCN,testest,na,../datasets/SAMPLE_TimeSeries_Longest1000Runs_wAnthro_MultiLabeledSpeed_20180523.csv,20,0.0,0.0,0.0,0.0001,0.1,categorical_crossentropy,10,5
+FCN,testest,na,../datasets/SAMPLE_TimeSeries_Longest1000Runs_wAnthro_MultiLabeledSpeed_20180523.csv,20,0.0,0.0,0.0,0.0001,0.1,categorical_crossentropy,10,5
+FCN,testest,na,../datasets/SAMPLE_TimeSeries_Longest1000Runs_wAnthro_MultiLabeledSpeed_20180523.csv,20,39.900620460510254,0.7341066250145875,0.7945492658100288,0.0001,0.1,categorical_crossentropy,10,5
