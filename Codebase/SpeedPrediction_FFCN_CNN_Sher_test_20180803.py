@@ -51,21 +51,21 @@ np.random.seed(7) # Set seed for reproducibility
 
 # #### Set Hyperparameters
 
-# In[ ]:
+# In[8]:
 
 
 # Data Setup
 
 num_channels = 6 # number of time-series channels of data (i.e. 7 kinematic features) #NOTE: Change to 6 by removing Pelvic Tilt (recommended by Lumo)
 num_anthropometrics = 4 # number of user anthropometric data elements
-input_window_size = 11 # number of timestamps used in the input for prediction (i.e. the input window)
-label_window_size = 5 # number of timestamps used to label the speed we will be predicting
+input_window_size = 36 # number of timestamps used in the input for prediction (i.e. the input window)
+label_window_size = 30 # number of timestamps used to label the speed we will be predicting
 speed_bucket_size = '0.1' # how to round the data for classification task. Consider '0.5', '0.1', and 'none_use_regression'
 
 previous_model_weights_to_load = "" # If non-empty, load weights from a previous model (note: architectures must be identical)
 model_architecture = 'CNN' # 'FCN', 'CNN'
 data_input_table_structure = 'Raw_Timeseries' # 'Vectorized_By_Row' 'Raw_Timeseries'
-myFileDirectory = '~/SherlockDataFiles/'
+myFileDirectory = 'C:/Users/adam/Documents/CS 230/Project/Lumo Data/'
 myFileName = 'quarter-big'
 myFileLocation = myFileDirectory + myFileName + '.csv'
         # Other data files/folders to potentially use:
@@ -114,7 +114,7 @@ loss_function = 'categorical_crossentropy' # Other options (from keras defaults 
 
 # #### Set Up Automatic Reporting and Plotting
 
-# In[ ]:
+# In[9]:
 
 
 # Choose the 3 most interesting evaluation metrics to report on in final plots
@@ -129,7 +129,7 @@ dev_reporting_metric_3 = 'val_' + accuracy_reporting_metric_3
 plt.style.use('ggplot') # style of matlab plots to produce
 
 
-# In[ ]:
+# In[10]:
 
 
 # File naming conventions
@@ -149,7 +149,7 @@ if customize_file_names:
 
 # #### Define functions for data processing and plotting
 
-# In[ ]:
+# In[11]:
 
 
 def read_data(file_path):
@@ -360,13 +360,7 @@ def load_results_file_CNN(results_file_name):
 
 # #### Normalize Data
 
-# In[ ]:
-
-
-print('made it to Normalize Data')
-
-
-# In[ ]:
+# In[12]:
 
 
 dataset = read_data(myFileLocation)
@@ -379,15 +373,9 @@ elif data_input_table_structure == 'Vectorized_By_Row':
     dataset_inputs_normalized = (dataset_inputs - dataset_inputs.mean())/dataset_inputs.std()
 
 
-# In[ ]:
-
-
-print('made it past Normalize Data')
-
-
 # #### Preprocess data to input into model
 
-# In[ ]:
+# In[13]:
 
 
 np_array_file_string_segment = "../Saved NP Arrays/" + str(myFileName) + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_segment.npy"
@@ -428,10 +416,10 @@ num_buckets_total = len(labels[1]) # total number of classification buckets that
 
 # #### Shuffle data into training and dev
 
-# In[ ]:
+# In[16]:
 
 
-train_dev_split = np.random.rand(len(segments)) < 0.90
+train_dev_split = np.random.rand(len(labels)) < 0.90 # split data into 90% train, 10% dev, based on lenghto of labels
 
 if  model_architecture == 'FCN':
     X_train = segments[train_dev_split]
@@ -446,15 +434,9 @@ y_train = labels[train_dev_split]
 y_test = labels[~train_dev_split]
 
 
-# In[ ]:
-
-
-print(X_test.shape)
-
-
 # #### Implement NN architecture in a Keras model
 
-# In[ ]:
+# In[18]:
 
 
 def fcnModel():
@@ -502,7 +484,7 @@ def cnnModel_multInput(): # (inputs, outputs):
     return model
 
 
-# In[ ]:
+# In[19]:
 
 
 if  model_architecture == 'FCN':
@@ -511,7 +493,7 @@ elif model_architecture == 'CNN':
     model = cnnModel_multInput()
 
 
-# In[ ]:
+# In[20]:
 
 
 # View model summary
@@ -520,7 +502,7 @@ model.summary()
 
 # #### Define custom loss functions and evaluation metrics
 
-# In[ ]:
+# In[21]:
 
 
 from keras import backend as K
@@ -561,7 +543,7 @@ def class_percent_2buckRange(y_true, y_pred): # percent of times the prediction 
 
 # #### Configure model loss and optimization function
 
-# In[ ]:
+# In[22]:
 
 
 # Define Optimizer
@@ -582,7 +564,7 @@ else:                                          # if performing regression, use m
 
 # #### Train!
 
-# In[ ]:
+# In[23]:
 
 
 # If desired, load weights from a previous model to start with model
@@ -591,7 +573,7 @@ if previous_model_weights_to_load != "":
     model.load_weights("../Model Final Parameters/" + previous_model_weights_to_load)
 
 
-# In[ ]:
+# In[24]:
 
 
 start_time = time.time()
