@@ -8,7 +8,7 @@
 # In[41]:
 
 
-machine_to_run_script = 'local' # 'Sherlock', 'local'
+machine_to_run_script = 'Sherlock' # 'Sherlock', 'local'
 
 
 # # Load dependencies
