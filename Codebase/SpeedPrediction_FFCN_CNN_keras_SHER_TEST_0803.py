@@ -65,7 +65,7 @@ speed_bucket_size = '0.1' # how to round the data for classification task. Consi
 previous_model_weights_to_load = "" # If non-empty, load weights from a previous model (note: architectures must be identical)
 model_architecture = 'CNN' # 'FCN', 'CNN'
 data_input_table_structure = 'Raw_Timeseries' # 'Vectorized_By_Row' 'Raw_Timeseries'
-myFileDirectory = '../SherlockDataFiles/'
+myFileDirectory = '~/SherlockDataFiles/'
 myFileName = 'quarter-big'
 myFileLocation = myFileDirectory + myFileName + '.csv'
         # Other data files/folders to potentially use:
