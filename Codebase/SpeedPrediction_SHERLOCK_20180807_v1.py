@@ -73,8 +73,8 @@ if machine_to_run_script == 'local':
     folder_head_loc = '../';
     folder_data_loc = 'C:/Users/adam/Documents/Lumo/Lumo Data/'
 elif machine_to_run_script == 'Sherlock':
-    folder_head_loc = '~/lumo/'
-    folder_data_loc = '~/SherlockDataFiles/'
+    folder_head_loc = '/home/users/agotlin/lumo/'
+    folder_data_loc = '/home/users/agotlin/lumo/SherlockDataFiles/'
 myFileName = 'TimeSeries_InputRaw_1000Runs_Top10kRowsSample'
 myFileLocation = folder_data_loc + myFileName + '.csv'
     # Other data files/folders to potentially use:
