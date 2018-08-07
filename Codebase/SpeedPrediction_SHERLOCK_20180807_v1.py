@@ -3,12 +3,20 @@
 
 # # Lumo Run - Deep FFCN and CNN
 
-# #### Load dependencies
+# #### Where is this script being run
 
 # In[1]:
 
 
-print('made it here 1') # these are used for Sherlock to check what is causing the hiccup
+machine_to_run_script = 'local' # 'Sherlock', 'local'
+
+
+# # Load dependencies
+
+# In[9]:
+
+
+print('script is starting!') # these are used for Sherlock to check what is causing the hiccup
 
 import keras
 from keras.datasets import mnist
@@ -20,14 +28,12 @@ from keras.utils import plot_model
 from keras import regularizers 
 from keras import optimizers
 
-print('made it here 2')
+print('made it passed keras')
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
-
-print('made it here 3')
 
 import tensorflow as tf
 
@@ -41,8 +47,6 @@ import pickle
 import os.path
 #import dill #can't find dill
 
-print('made it here 4')
-
 from pathlib import Path
 from sklearn.metrics import confusion_matrix 
 
@@ -51,7 +55,7 @@ np.random.seed(7) # Set seed for reproducibility
 
 # #### Set Hyperparameters
 
-# In[8]:
+# In[10]:
 
 
 # Data Setup
@@ -65,14 +69,26 @@ speed_bucket_size = '0.1' # how to round the data for classification task. Consi
 previous_model_weights_to_load = "" # If non-empty, load weights from a previous model (note: architectures must be identical)
 model_architecture = 'CNN' # 'FCN', 'CNN'
 data_input_table_structure = 'Raw_Timeseries' # 'Vectorized_By_Row' 'Raw_Timeseries'
-myFileDirectory = 'C:/Users/adam/Documents/CS 230/Project/Lumo Data/'
-myFileName = 'quarter-big'
-myFileLocation = myFileDirectory + myFileName + '.csv'
-        # Other data files/folders to potentially use:
-        # '../datasets/'  |  'C:/Users/adam/Documents/CS 230/Project/Lumo Data/
-        # 'quarter-big'   |   'TimeSeries_InputVector_100runs'   |   'TimeSeries_InputVector_15runs'
-        # 'SAMPLE_TimeSeries_Longest1000Runs_wAnthro_MultiLabeledSpeed_20180523'  |  'TimeSeries_InputCNN_1000Runs'
-        
+if machine_to_run_script == 'local':
+    folder_head_loc = '../';
+    folder_data_loc = 'C:/Users/adam/Documents/Lumo/Lumo Data/'
+elif machine_to_run_script == 'Sherlock':
+    folder_head_loc = '~/lumo/'
+    folder_data_loc = '~/SherlockDataFiles/'
+myFileName = 'TimeSeries_InputRaw_1000Runs_Top10kRowsSample'
+myFileLocation = folder_data_loc + myFileName + '.csv'
+    # Other data files/folders to potentially use:
+    # 'TimeSeries_InputVector_100runs'   |   'TimeSeries_InputVector_15runs'
+    # 'TimeSeries_InputRaw_1000Runs'  |  'TimeSeries_InputRaw_1000Runs_QuarterSample'  |  'TimeSeries_InputRaw_1000Runs_Top10kRowsSample'
+
+# Training strategy
+
+batch_size = 50 # we used 50 for CNN, 128 for FCN
+learning_rate = 0.0001 # we used 0.001 for FCN, 0.0001 for CNN
+training_epochs = 10
+optimizer_type = 'gradient' # options are: "adam" , "rmsprop", "gradient" # adam for FCN, gradient for CNN
+loss_function = 'categorical_crossentropy' # Other options (from keras defaults or custom) include: 'categorical_crossentropy' ,'mse', 'mae', 'class_mse', 'class_mae'    
+    
 # Fully Connected Architecture
 
 num_hidden_units_fc_layers = [256, 256, 256, 128, 128, 128]
@@ -102,19 +118,11 @@ dropout_rates_CNN = ''.join(str(num) + "_" for num in dropout_rate_fc_layers_CNN
 
 num_hidden_units_fc_layers_CNN[0] 
 activations_fc_layers_CNN[0]
-    
-# Training strategy
-
-batch_size = 50 # we used 50 for CNN, 128 for FCN
-learning_rate = 0.0001 # we used 0.001 for FCN, 0.0001 for CNN
-training_epochs = 50
-optimizer_type = 'gradient' # options are: "adam" , "rmsprop", "gradient" # adam for FCN, gradient for CNN
-loss_function = 'categorical_crossentropy' # Other options (from keras defaults or custom) include: 'categorical_crossentropy' ,'mse', 'mae', 'class_mse', 'class_mae'
 
 
 # #### Set Up Automatic Reporting and Plotting
 
-# In[9]:
+# In[11]:
 
 
 # Choose the 3 most interesting evaluation metrics to report on in final plots
@@ -129,7 +137,7 @@ dev_reporting_metric_3 = 'val_' + accuracy_reporting_metric_3
 plt.style.use('ggplot') # style of matlab plots to produce
 
 
-# In[10]:
+# In[12]:
 
 
 # File naming conventions
@@ -149,7 +157,7 @@ if customize_file_names:
 
 # #### Define functions for data processing and plotting
 
-# In[11]:
+# In[13]:
 
 
 def read_data(file_path):
@@ -218,7 +226,7 @@ def segment_signal_w_concat(data_inputs, data_full, input_window_size = input_wi
         return segments_timeseries, segments_anthro, labels
 
 def load_results_file_FCN(results_file_name):
-    my_file = Path("../Model Performance Tables/" + results_file_name + ".csv")
+    my_file = Path(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv")
     if my_file.is_file():
         print("Found results file")
         prev_results=pd.read_csv(my_file,header=0)
@@ -281,15 +289,15 @@ def load_results_file_FCN(results_file_name):
                                     "activations_strategy",
                                     "dropout_rates"])
         
-        df.to_csv("../Model Performance Tables/" + results_file_name + ".csv",index=False ) 
+        df.to_csv(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv",index=False ) 
         return df
 
 def load_results_file_CNN(results_file_name):
-    my_file = Path("../Model Performance Tables/" + results_file_name + ".csv")
+    my_file = Path(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv")
     if my_file.is_file():
-        print("Found results file")
+        #print("Found results file")
         prev_results=pd.read_csv(my_file,header=0)
-        print(list(prev_results.columns.values))
+        #print(list(prev_results.columns.values))
         return prev_results
     else:
         print("no results file found - creating file")
@@ -354,13 +362,13 @@ def load_results_file_CNN(results_file_name):
                                     "activations_strategy_CNN",
                                     "max_pool_kernel_size"])
         
-        df.to_csv("../Model Performance Tables/" + results_file_name + ".csv",index=False ) 
+        df.to_csv(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv",index=False ) 
         return df        
 
 
 # #### Normalize Data
 
-# In[12]:
+# In[14]:
 
 
 dataset = read_data(myFileLocation)
@@ -373,18 +381,24 @@ elif data_input_table_structure == 'Vectorized_By_Row':
     dataset_inputs_normalized = (dataset_inputs - dataset_inputs.mean())/dataset_inputs.std()
 
 
+# In[15]:
+
+
+print('made it passed Normalize Data')
+
+
 # #### Preprocess data to input into model
 
-# In[13]:
+# In[16]:
 
 
-np_array_file_string_segment = "../Saved NP Arrays/" + str(myFileName) + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_segment.npy"
-np_array_file_string_segment_timeseries = "../Saved NP Arrays/" + str(myFileName) + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_segment_timeseries.npy"
-np_array_file_string_segment_anthro = "../Saved NP Arrays/" + str(myFileName) + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_segment_anthro.npy"
-np_array_file_string_label = "../Saved NP Arrays/" + str(myFileName) + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_label.npy"
-np_array_file_string_label2num = "../Saved NP Arrays/" + str(myFileName) + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_label2num.npy"
-        
-if os.path.isfile(np_array_file_string_segment):   # if this file already exists, load the relevant saved np arrays
+np_array_file_string_segment = folder_data_loc + "SavedNPArrays/" + str(myFileName) + "_" + model_architecture + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_segment.npy"
+np_array_file_string_segment_timeseries = folder_data_loc + "SavedNPArrays/" + str(myFileName) + "_" + model_architecture + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_segment_timeseries.npy"
+np_array_file_string_segment_anthro = folder_data_loc + "SavedNPArrays/" + str(myFileName) + "_" + model_architecture + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_segment_anthro.npy"
+np_array_file_string_label = folder_data_loc + "SavedNPArrays/" + str(myFileName) + "_" + model_architecture + "_" +  str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_label.npy"
+np_array_file_string_label2num = folder_data_loc + "SavedNPArrays/" + str(myFileName) + "_" + model_architecture + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_label2num.npy"
+    
+if os.path.isfile(np_array_file_string_label):   # if this file already exists, load the relevant SavedNPArrays
     if  model_architecture == 'FCN':
         segments = np.load(np_array_file_string_segment, allow_pickle=True)
     elif model_architecture == 'CNN':
@@ -404,7 +418,7 @@ else:    # if this file does not exist, run segment_signal method and create np 
          labels_to_number = np.unique(labels) # Caches "labels_to_number" in order to use in rmse calculation for classification
          labels = np.asarray(pd.get_dummies(labels), dtype = np.int8) # one-hot labels to classify nearest bucket
     if  model_architecture == 'FCN':
-        np.save(np_array_file_string_segment, segments, allow_pickle=True)
+        np.save(np_array_file_string_segment, segments, allow_pickle=True) # THIS DID NOT SAVE ON SHERLOCK EVEN THOUGH DIRECTORY EXISTED
     elif model_architecture == 'CNN':
         np.save(np_array_file_string_segment_timeseries, segments_timeseries, allow_pickle=True)
         np.save(np_array_file_string_segment_anthro, segments_anthro, allow_pickle=True)
@@ -414,9 +428,15 @@ else:    # if this file does not exist, run segment_signal method and create np 
 num_buckets_total = len(labels[1]) # total number of classification buckets that exist in the dataset (here, classification bucket == classification class)
 
 
+# In[17]:
+
+
+print('made it passed Preprocess Data')
+
+
 # #### Shuffle data into training and dev
 
-# In[16]:
+# In[18]:
 
 
 train_dev_split = np.random.rand(len(labels)) < 0.90 # split data into 90% train, 10% dev, based on lenghto of labels
@@ -436,7 +456,7 @@ y_test = labels[~train_dev_split]
 
 # #### Implement NN architecture in a Keras model
 
-# In[18]:
+# In[19]:
 
 
 def fcnModel():
@@ -484,7 +504,7 @@ def cnnModel_multInput(): # (inputs, outputs):
     return model
 
 
-# In[19]:
+# In[20]:
 
 
 if  model_architecture == 'FCN':
@@ -493,7 +513,7 @@ elif model_architecture == 'CNN':
     model = cnnModel_multInput()
 
 
-# In[20]:
+# In[21]:
 
 
 # View model summary
@@ -502,7 +522,7 @@ model.summary()
 
 # #### Define custom loss functions and evaluation metrics
 
-# In[21]:
+# In[22]:
 
 
 from keras import backend as K
@@ -543,7 +563,7 @@ def class_percent_2buckRange(y_true, y_pred): # percent of times the prediction 
 
 # #### Configure model loss and optimization function
 
-# In[22]:
+# In[23]:
 
 
 # Define Optimizer
@@ -564,16 +584,16 @@ else:                                          # if performing regression, use m
 
 # #### Train!
 
-# In[23]:
+# In[24]:
 
 
 # If desired, load weights from a previous model to start with model
 
 if previous_model_weights_to_load != "":
-    model.load_weights("../Model Final Parameters/" + previous_model_weights_to_load)
+    model.load_weights(folder_head_loc + "Model Final Parameters/" + previous_model_weights_to_load)
 
 
-# In[24]:
+# In[25]:
 
 
 start_time = time.time()
@@ -590,7 +610,7 @@ end_time=time.time()
 
 # #### Save a plot of results
 
-# In[ ]:
+# In[26]:
 
 
 # Transform key results into a np arrary
@@ -606,7 +626,7 @@ epochs = np.squeeze(range(1,training_epochs + 1))
 
 # Save results to a .csv in the "Learning Curve Results"
 df_devAccuracy = pd.DataFrame(np.transpose(np.vstack([epochs,devAccuracy_1, devAccuracy_2, devAccuracy_3, devAccuracy_4])))
-filepath_acc = "../Learning Curves/" + str(file_name) +"_AccuracyPerEpoch_Data" + ".csv"
+filepath_acc = folder_head_loc + "Learning Curves/" + str(file_name) +"_AccuracyPerEpoch_Data" + ".csv"
 df_devAccuracy.to_csv(filepath_acc, header = ["Epochs", dev_reporting_metric_1, dev_reporting_metric_2, dev_reporting_metric_3, 'acc'], index=False)
 
 # Declare final values for results
@@ -620,7 +640,7 @@ final_accuracy_4 = history.history['acc'][training_epochs - 1]
 final_accuracy_dev_4 = history.history['val_acc'][training_epochs - 1]
 
 
-# In[ ]:
+# In[27]:
 
 
 from matplotlib.patches import Rectangle
@@ -661,13 +681,14 @@ plt.legend([extra,extra,extra,extra,extra,extra,extra,extra,extra,extra],(
 leg = Legend(ax1, lines[0:], ['Train ACC', 'Dev ACC','Train Eval 1','Dev Eval 1'],
              loc='bestoutside', frameon=False)
 ax1.add_artist(leg);
-plt.savefig("../Learning Curves/" + str(file_name) + "_AccuracyPerEpoch_Image.png", bbox_inches = "tight")
-plt.show()
+plt.savefig(folder_head_loc + "Learning Curves/" + str(file_name) + "_AccuracyPerEpoch_Image.png", bbox_inches = "tight")
+if machine_to_run_script == 'local':
+    plt.show()
 
 
-# #### Record results of a model in a table:
+# #### Record results of the model in a table
 
-# In[ ]:
+# In[29]:
 
 
 # Add the results of the most recent run to the results file for documentation
@@ -788,23 +809,27 @@ elif model_architecture == 'CNN':
                                 "max_pool_kernel_size"])    
     past_results = load_results_file_CNN(results_file_name)
 past_results=pd.concat([past_results,df])
-print(past_results)
-past_results.to_csv("../Model Performance Tables/" + results_file_name + ".csv",index=False ) # Consider fixing to put the columns in not-alphabetical order
+#if machine_to_run_script == 'local':
+    #print(past_results)
+past_results.to_csv(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv",index=False ) # Consider fixing to put the columns in not-alphabetical order
 
 
-# #### Build Confusion Matrix and Regression Plot
+# #### Build confusion matrix and regression plot
 
-# In[ ]:
+# In[30]:
 
 
-y_pred = model.predict(X_test)
+if  model_architecture == 'FCN':
+    y_pred = model.predict(X_test)
+elif model_architecture == 'CNN':
+    y_pred = model.predict([X_test_timeseries, X_test_anthro])
 y_pred_argmax = np.argmax(y_pred, axis=1)
 
 y_true = y_test
 y_true_argmax = np.argmax(y_true, axis=1)
 
 
-# In[ ]:
+# In[31]:
 
 
 # Plot results
@@ -815,29 +840,30 @@ plt.xlim([0,50])
 plt.ylim([0,50])
 plt.xlabel('Y_True')
 plt.ylabel('Y_Prediction')
-plt.savefig("../Confusion Matrices/" + str(file_name) + "_ConfusionMatrix_Image.png")
-plt.show()
+plt.savefig(folder_head_loc + "Confusion Matrices/" + str(file_name) + "_ConfusionMatrix_Image.png")
+if machine_to_run_script == 'local':
+    plt.show()
 
 # Record data in a .csv
 y_trueVy_pred = np.vstack([y_true_argmax,y_pred_argmax])
 df_y_trueVy_pred = pd.DataFrame(np.transpose(y_trueVy_pred))
-filepath_predictions = "../Model Final Predictions/" + str(file_name) + "_Predictions" + ".csv"
+filepath_predictions = folder_head_loc + "Model Final Predictions/" + str(file_name) + "_Predictions" + ".csv"
 df_y_trueVy_pred.to_csv(filepath_predictions, header = ["y_true_argmax", "y_pred_argmax"], index=False)
 
 # Create and save a confusion matrix
 cm = confusion_matrix(y_true_argmax, y_pred_argmax)
 df_cm = pd.DataFrame (cm)
-filepath_cm = "../Confusion Matrices/" + str(file_name) + "_ConfusionMatrix_Data.xlsx"
+filepath_cm = folder_head_loc + "Confusion Matrices/" + str(file_name) + "_ConfusionMatrix_Data.xlsx"
 df_cm.to_excel(filepath_cm, index=False)
 
 
 # #### Save model parameters (weights)
 
-# In[ ]:
+# In[32]:
 
 
 completed_model_name = file_name + "_" + model_architecture
-model.save_weights("../Model Final Parameters/" + completed_model_name + '_weights.h5')
+model.save_weights(folder_head_loc + "Model Final Parameters/" + completed_model_name + '_weights.h5')
 
 
 # ### End of Script
