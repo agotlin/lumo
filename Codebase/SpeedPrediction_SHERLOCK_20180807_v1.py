@@ -74,7 +74,7 @@ if machine_to_run_script == 'local':
     folder_data_loc = 'C:/Users/adam/Documents/Lumo/Lumo Data/'
 elif machine_to_run_script == 'Sherlock':
     folder_head_loc = '/home/users/agotlin/lumo/'
-    folder_data_loc = '/home/users/agotlin/lumo/SherlockDataFiles/'
+    folder_data_loc = '/home/users/agotlin/SherlockDataFiles/'
 myFileName = 'TimeSeries_InputRaw_1000Runs_Top10kRowsSample'
 myFileLocation = folder_data_loc + myFileName + '.csv'
     # Other data files/folders to potentially use:
@@ -407,6 +407,7 @@ if os.path.isfile(np_array_file_string_label):   # if this file already exists, 
     labels = np.load(np_array_file_string_label, allow_pickle=True)
     labels_to_number = np.load(np_array_file_string_label2num, allow_pickle=True)
 else:    # if this file does not exist, run segment_signal method and create np arrays for future use
+	print('starting to create sement and label file')
     if data_input_table_structure == 'Raw_Timeseries':
         if  model_architecture == 'FCN':
             segments, labels = segment_signal_w_concat(dataset_inputs_normalized, dataset)
