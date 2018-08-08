@@ -399,6 +399,7 @@ np_array_file_string_label = folder_data_loc + "SavedNPArrays/" + str(myFileName
 np_array_file_string_label2num = folder_data_loc + "SavedNPArrays/" + str(myFileName) + "_" + model_architecture + "_" + str(input_window_size) + "_" + str(label_window_size) + "_" + str(sample_stride) + "_label2num.npy"
     
 if os.path.isfile(np_array_file_string_label):   # if this file already exists, load the relevant SavedNPArrays
+    print('Pulling ' + np_array_file_string_label)
     if  model_architecture == 'FCN':
         segments = np.load(np_array_file_string_segment, allow_pickle=True)
     elif model_architecture == 'CNN':
@@ -407,7 +408,8 @@ if os.path.isfile(np_array_file_string_label):   # if this file already exists, 
     labels = np.load(np_array_file_string_label, allow_pickle=True)
     labels_to_number = np.load(np_array_file_string_label2num, allow_pickle=True)
 else:    # if this file does not exist, run segment_signal method and create np arrays for future use
-    if data_input_table_structure == 'Raw_Timeseries':
+    print('Creating ' + np_array_file_string_label)
+	if data_input_table_structure == 'Raw_Timeseries':else:    # if this file does not exist, run segment_signal method and create np arrays for future use
         if  model_architecture == 'FCN':
             segments, labels = segment_signal_w_concat(dataset_inputs_normalized, dataset)
         elif model_architecture == 'CNN':
