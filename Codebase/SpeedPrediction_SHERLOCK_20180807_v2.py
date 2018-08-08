@@ -409,7 +409,7 @@ if os.path.isfile(np_array_file_string_label):   # if this file already exists, 
     labels_to_number = np.load(np_array_file_string_label2num, allow_pickle=True)
 else:    # if this file does not exist, run segment_signal method and create np arrays for future use
     print('Creating ' + np_array_file_string_label)
-	if data_input_table_structure == 'Raw_Timeseries':else:    # if this file does not exist, run segment_signal method and create np arrays for future use
+	if data_input_table_structure == 'Raw_Timeseries':
         if  model_architecture == 'FCN':
             segments, labels = segment_signal_w_concat(dataset_inputs_normalized, dataset)
         elif model_architecture == 'CNN':
