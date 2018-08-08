@@ -75,7 +75,7 @@ if machine_to_run_script == 'local':
 elif machine_to_run_script == 'Sherlock':
     folder_head_loc = '/home/users/agotlin/lumo/'
     folder_data_loc = '/home/users/agotlin/SherlockDataFiles/'
-myFileName = 'TimeSeries_InputRaw_1000Runs_Top10kRowsSample'
+myFileName = 'TimeSeries_InputRaw_1000Runs_QuarterSample' 
 myFileLocation = folder_data_loc + myFileName + '.csv'
     # Other data files/folders to potentially use:
     # 'TimeSeries_InputVector_100runs'   |   'TimeSeries_InputVector_15runs'
