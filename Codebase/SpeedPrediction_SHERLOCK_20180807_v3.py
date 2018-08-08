@@ -865,7 +865,7 @@ df_cm.to_excel(filepath_cm, index=False)
 
 
 completed_model_name = file_name + "_" + model_architecture
-model.save_weights(folder_head_loc + "Model Final Parameters/" + completed_model_name + '_weights.h5')
+#model.save_weights(folder_head_loc + "Model Final Parameters/" + completed_model_name + '_weights.h5')
 
 
 # ### End of Script
