@@ -85,7 +85,7 @@ myFileLocation = folder_data_loc + myFileName + '.csv'
 
 batch_size = 128 # we used 50 for CNN, 128 for FCN
 learning_rate = 0.0001 # we used 0.001 for FCN, 0.0001 for CNN
-training_epochs = 500
+training_epochs = 5
 optimizer_type = 'gradient' # options are: "adam" , "rmsprop", "gradient" # adam for FCN, gradient for CNN
 loss_function = 'categorical_crossentropy' # Other options (from keras defaults or custom) include: 'categorical_crossentropy' ,'mse', 'mae', 'class_mse', 'class_mae'    
     
