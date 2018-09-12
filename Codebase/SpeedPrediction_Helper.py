@@ -34,9 +34,18 @@ import os.path
 from pathlib import Path
 from sklearn.metrics import confusion_matrix 
 
+from keras import backend as K
+
+from matplotlib.patches import Rectangle
+from matplotlib.legend import Legend
+
 np.random.seed(7) # Set seed for reproducibility
 
+
 # Helper Functions
+
+
+# Read and process input data
 
 def read_data(file_path):
     data = pd.read_csv(file_path,header = 0) # This uses the header row (row 0) as the column names
@@ -62,7 +71,7 @@ def segment_signal_FCN_vector(data_inputs, data_full):
     return segments, labels
 
 # Used for CNN/FFCN input WITHOUT SQL pre-processing
-def segment_signal_w_concat(data_inputs, data_full, input_window_size = input_window_size):
+def segment_signal_w_concat(data_inputs, data_full):
     # define segment shape for training example input
     if  model_architecture == 'FCN':
         segments = np.empty((0,input_window_size*num_channels + num_anthropometrics))
@@ -102,44 +111,203 @@ def segment_signal_w_concat(data_inputs, data_full, input_window_size = input_wi
         return segments, labels
     elif model_architecture == 'CNN':            
         return segments_timeseries, segments_anthro, labels
+    
 
-def load_results_file_FCN(results_file_name):
-    my_file = Path(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv")
-    if my_file.is_file():
-        print("Found results file")
-        prev_results=pd.read_csv(my_file,header=0)
-        print(list(prev_results.columns.values))
-        return prev_results
-    else:
-        print("no results file found - creating file")
-        a=[[model_architecture,
+    
+# Create learning curves
+
+def create_learning_curves_from_model(machine_to_run_script
+            ,trainAccuracy_4
+            ,devAccuracy_4
+            ,trainAccuracy_1
+            ,devAccuracy_1
+            ,trainAccuracy_2
+            ,devAccuracy_2
+            ,dev_reporting_metric_1
+            ,final_accuracy_dev_1
+            ,dev_reporting_metric_2
+            ,final_accuracy_dev_2
+            ,loss_function
+            ,learning_rate
+            ,batch_size
+            ,speed_bucket_size
+            ,training_epochs
+            ,input_window_size
+            ,labels_to_number
+            ,accuracy_reporting_metric_1
+            ,accuracy_reporting_metric_2
+            ,accuracy_reporting_metric_3
+            ,plot_note
+            ,folder_head_loc
+            ,file_name):
+    if machine_to_run_script == 'local':
+        fig, ax1 = plt.subplots()
+        lines=[]
+
+        lines += ax1.plot(trainAccuracy_4,'#0e128c', label='Train Accuracy 2', linewidth=1) #'#DAF7A6'
+        lines += ax1.plot(devAccuracy_4,'#a3a4cc', label='Dev Accuracy 2', linewidth=1)# '#33FF00',
+        lines += ax1.plot(trainAccuracy_1,'#FF5733', label='Train Accuracy 1', linewidth=1)
+        lines += ax1.plot(devAccuracy_1,'#C70039', label='Dev Accuracy 1', linewidth=1)
+        lines += ax1.plot(trainAccuracy_2,'#9C27B0', label='Train Accuracy 2', linewidth=1)
+        lines += ax1.plot(devAccuracy_2,'#7986CB', label='Dev Accuracy 2', linewidth=1)
+        plt.ylim([0.0, 1.0])  # Surpress this for non-classification tasks
+
+        plt.ylabel('Train vs. Dev Accuracy')
+
+        plt.xlabel('Epochs')
+        plt.title(dev_reporting_metric_1 + ": " + str(np.around(final_accuracy_dev_1,4)) + "\n" + \
+                 dev_reporting_metric_2 + ": " + str(np.around(final_accuracy_dev_2,4))) 
+        extra = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)
+        plt.legend([extra,extra,extra,extra,extra,extra,extra,extra,extra,extra],(
+                                                        "loss: " + loss_function,
+                                                        "learning rate: " + str(learning_rate),
+                                                        "batch_size: " + str(batch_size),
+                                                        "speed_bucket_size: " + speed_bucket_size,
+                                                        "epochs: "+str(training_epochs),
+                                                        "input_window_size: " + str(input_window_size),
+                                                        "num_labels: " + str(len(labels_to_number)),
+                                                        "evaluation metric 1:"+accuracy_reporting_metric_1,
+                                                        "evaluation metric 2:"+accuracy_reporting_metric_2,
+                                                        "evaluation metric 3:"+accuracy_reporting_metric_3,
+                                                        "note:" + plot_note),
+                                                        bbox_to_anchor=(1.05, 1),
+                                                        loc=2,
+                                                        borderaxespad=0.)
+
+        leg = Legend(ax1, lines[0:], ['Train ACC', 'Dev ACC','Train Eval 1','Dev Eval 1'],
+                     loc='best', frameon=False)
+        ax1.add_artist(leg);
+        plt.savefig(folder_head_loc + "Learning Curves/" + str(file_name) + "_AccuracyPerEpoch_Image.png", bbox_inches = "tight")
+        plt.show()
+
+
+
+# Create results tables for model performance    
+
+def populate_results_performance_table(folder_head_loc,
+            results_file_name,
+            model_architecture,
             file_name,
-            "na",
             myFileLocation,
-            training_epochs,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            batch_size,
+            training_epochs,  
+            end_time,
+            start_time,
+            final_accuracy_1,
+            final_accuracy_dev_1,
+            final_accuracy_2,
+            final_accuracy_dev_2,
+            final_accuracy_3,
+            final_accuracy_dev_3,
+            batch_size,    
             learning_rate,
             speed_bucket_size,
             loss_function,
             input_window_size,
             label_window_size,
             optimizer_type,
-            "",
-            "",
-            "",
+            accuracy_reporting_metric_1,
+            accuracy_reporting_metric_2,
+            accuracy_reporting_metric_3,
+            num_hidden_fc_layers,
+            hidden_units_strategy,
+            activations_strategy,
+            dropout_rates,
+            hidden_units_strategy_CNN,
+            num_filters,
+            kernel_size,
+            sample_stride,
+            activation_conv_layer,
+            activations_strategy_CNN,
+            max_pool_kernel_size):
+    my_file = Path(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv")
+    
+    if  model_architecture == 'FCN':
+        if my_file.is_file():
+            print("Found results file")
+            past_results=pd.read_csv(my_file,header=0)
+        else:
+            print("no results file found - creating file")
+            a_new =[[model_architecture,
+                file_name,
+                "na",
+                myFileLocation,
+                training_epochs,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                batch_size,
+                learning_rate,
+                speed_bucket_size,
+                loss_function,
+                input_window_size,
+                label_window_size,
+                optimizer_type,
+                "",
+                "",
+                "",
+                num_hidden_fc_layers,
+                hidden_units_strategy,
+                activations_strategy,
+                dropout_rates
+                ]]
+            df_new = pd.DataFrame(a_new, columns=["model type",
+                                        "model filename",
+                                        "plot filename",
+                                        "data filename",
+                                        "epochs",
+                                        "runtime",
+                                        "train accuracy 1",
+                                        "dev accuracy 1",
+                                        "train accuracy 2",
+                                        "dev accuracy 2",
+                                        "train accuracy 3",
+                                        "dev accuracy 3",
+                                        "batch_size",
+                                        "learning_rate",
+                                        "speed_bucket_size",
+                                        "loss_function",
+                                        "input_window_size",
+                                        "label_window_size",
+                                        "optimizer_type",
+                                        "evaluation_metric_1",
+                                        "evaluation_metric_2",
+                                        "evaluation_metric_3",
+                                        "num_hidden_fc_layers",
+                                        "hidden_units_strategy",
+                                        "activations_strategy",
+                                        "dropout_rates"])
+            df_new.to_csv(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv",index=False ) 
+        a=[[model_architecture,
+            file_name,
+            "na",
+            myFileLocation,
+            training_epochs,  
+            end_time - start_time,
+            final_accuracy_1,
+            final_accuracy_dev_1,
+            final_accuracy_2,
+            final_accuracy_dev_2,
+            final_accuracy_3,
+            final_accuracy_dev_3,
+            batch_size,    
+            learning_rate,
+            speed_bucket_size,
+            loss_function,
+            input_window_size,
+            label_window_size,
+            optimizer_type,
+            accuracy_reporting_metric_1,
+            accuracy_reporting_metric_2,
+            accuracy_reporting_metric_3,
             num_hidden_fc_layers,
             hidden_units_strategy,
             activations_strategy,
             dropout_rates
-            ]]
-        
+           ]]
         df=pd.DataFrame(a, columns=["model type",
                                     "model filename",
                                     "plot filename",
@@ -152,7 +320,7 @@ def load_results_file_FCN(results_file_name):
                                     "dev accuracy 2",
                                     "train accuracy 3",
                                     "dev accuracy 3",
-                                    "batch_size",
+                                    "batch_size",  
                                     "learning_rate",
                                     "speed_bucket_size",
                                     "loss_function",
@@ -166,31 +334,85 @@ def load_results_file_FCN(results_file_name):
                                     "hidden_units_strategy",
                                     "activations_strategy",
                                     "dropout_rates"])
-        
-        df.to_csv(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv",index=False ) 
-        return df
-
-def load_results_file_CNN(results_file_name):
-    my_file = Path(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv")
-    if my_file.is_file():
-        #print("Found results file")
-        prev_results=pd.read_csv(my_file,header=0)
-        #print(list(prev_results.columns.values))
-        return prev_results
-    else:
-        print("no results file found - creating file")
+    
+    elif model_architecture == 'CNN':     
+        if my_file.is_file():
+            print("Found results file")
+            past_results=pd.read_csv(my_file,header=0)
+        else:
+            print("No results file found - creating file")
+            a_new=[[model_architecture,
+                file_name,
+                "na",
+                myFileLocation,
+                training_epochs,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                batch_size,
+                learning_rate,
+                speed_bucket_size,
+                loss_function,
+                input_window_size,
+                label_window_size,
+                optimizer_type,
+                "",
+                "",
+                "",
+                hidden_units_strategy_CNN,
+                num_filters,
+                kernel_size,
+                sample_stride,
+                activation_conv_layer,
+                activations_strategy_CNN,
+                max_pool_kernel_size
+                ]]
+            df_new=pd.DataFrame(a_new, columns=["model type",
+                                        "model filename",
+                                        "plot filename",
+                                        "data filename",
+                                        "epochs",
+                                        "runtime",
+                                        "dev accuracy 1",
+                                        "train accuracy 1",
+                                        "dev accuracy 2",
+                                        "train accuracy 2",
+                                        "dev accuracy 3",
+                                        "train accuracy 2",
+                                        "batch_size",
+                                        "learning_rate",
+                                        "speed_bucket_size",
+                                        "loss_function",
+                                        "input_window_size",
+                                        "label_window_size",
+                                        "optimizer_type",
+                                        "evaluation_metric_1",
+                                        "evaluation_metric_2",
+                                        "evaluation_metric_3",
+                                        "hidden_units_strategy_CNN",
+                                        "num_filters",
+                                        "kernel_size",
+                                        "sample_stride",
+                                        "activation_conv_layer",
+                                        "activations_strategy_CNN",
+                                        "max_pool_kernel_size"])
+            df_new.to_csv(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv",index=False ) 
         a=[[model_architecture,
             file_name,
             "na",
             myFileLocation,
             training_epochs,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
+            end_time - start_time,
+            final_accuracy_1,
+            final_accuracy_dev_1,
+            final_accuracy_2,
+            final_accuracy_dev_2,
+            final_accuracy_3,
+            final_accuracy_dev_3,
             batch_size,
             learning_rate,
             speed_bucket_size,
@@ -198,30 +420,28 @@ def load_results_file_CNN(results_file_name):
             input_window_size,
             label_window_size,
             optimizer_type,
-            "",
-            "",
-            "",
+            accuracy_reporting_metric_1,
+            accuracy_reporting_metric_2,
+            accuracy_reporting_metric_3,
             hidden_units_strategy_CNN,
             num_filters,
             kernel_size,
             sample_stride,
             activation_conv_layer,
             activations_strategy_CNN,
-            max_pool_kernel_size
-            ]]
-        
+            max_pool_kernel_size]]
         df=pd.DataFrame(a, columns=["model type",
                                     "model filename",
                                     "plot filename",
                                     "data filename",
                                     "epochs",
                                     "runtime",
+                                    "train dev accuracy 1",
                                     "dev accuracy 1",
-                                    "train accuracy 1",
+                                    "train accuracy 2",
                                     "dev accuracy 2",
-                                    "train accuracy 2",
+                                    "train  accuracy 3",
                                     "dev accuracy 3",
-                                    "train accuracy 2",
                                     "batch_size",
                                     "learning_rate",
                                     "speed_bucket_size",
@@ -238,7 +458,11 @@ def load_results_file_CNN(results_file_name):
                                     "sample_stride",
                                     "activation_conv_layer",
                                     "activations_strategy_CNN",
-                                    "max_pool_kernel_size"])
-        
-        df.to_csv(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv",index=False ) 
-        return df   
+                                    "max_pool_kernel_size"])    
+    
+    past_results=pd.concat([past_results,df])          # , sort=True doesnt work between bersion, so do not add
+    past_results.to_csv(folder_head_loc + "Model Performance Tables/" + results_file_name + ".csv",index=False )
+    # Consider fixing to put the columns in not-alphabetical order
+    #if machine_to_run_script == 'local':
+        #print(past_results)
+ 
