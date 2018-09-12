@@ -182,6 +182,37 @@ def create_learning_curves_from_model(machine_to_run_script
 
 
 
+# Create Confusion Matrix
+
+def create_conf_matrix_from_model(machine_to_run_script
+        ,y_true_argmax
+        ,y_pred_argmax
+        ,folder_head_loc
+        ,file_name):
+    # Plot results
+    if machine_to_run_script == 'local':
+        plt.scatter(y_true_argmax, y_pred_argmax, s=3, alpha=0.3)
+        plt.scatter(y_true_argmax, y_true_argmax, s=3, alpha=1)
+        #plt.scatter(y_true, y_pred, s=3, alpha=0.3) # For regression
+        plt.xlim([0,50])
+        plt.ylim([0,50])
+        plt.xlabel('Y_True')
+        plt.ylabel('Y_Prediction')
+        plt.savefig(folder_head_loc + "Confusion Matrices/" + str(file_name) + "_ConfusionMatrix_Image.png")
+        plt.show()
+    # Record data in a .csv
+    y_trueVy_pred = np.vstack([y_true_argmax,y_pred_argmax])
+    df_y_trueVy_pred = pd.DataFrame(np.transpose(y_trueVy_pred))
+    filepath_predictions = folder_head_loc + "Model Final Predictions/" + str(file_name) + "_Predictions" + ".csv"
+    df_y_trueVy_pred.to_csv(filepath_predictions, header = ["y_true_argmax", "y_pred_argmax"], index=False)
+    # Create and save a confusion matrix
+    cm = confusion_matrix(y_true_argmax, y_pred_argmax)
+    df_cm = pd.DataFrame (cm)
+    filepath_cm = folder_head_loc + "Confusion Matrices/" + str(file_name) + "_ConfusionMatrix_Data.xlsx"
+    df_cm.to_excel(filepath_cm, index=False)
+                                      
+                                      
+                                      
 # Create results tables for model performance    
 
 def populate_results_performance_table(folder_head_loc,
