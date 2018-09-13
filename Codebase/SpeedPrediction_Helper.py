@@ -1,5 +1,7 @@
 # Purpose: This script contains helper functions for the SpeedPrediction_ Jupyter Notebook script.
 
+# NOTE: There are two version of this file, the user should keep this version in sync: directories [lumo\Codebase\] and [lumo\Codebase\PyFilesForSherlock]
+
 # Import all necessary libraries
 
 import keras
