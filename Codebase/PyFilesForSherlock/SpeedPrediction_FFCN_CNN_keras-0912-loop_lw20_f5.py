@@ -90,7 +90,7 @@ batch_size_all = [64,128,256] # we used 50 for CNN, 128 for FCN
 learning_rate_all = [0.0001,0.001,0.0005] # we used 0.001 for FCN, 0.0001 for CNN
 optimizer_type_all = ['gradient','adam'] # options are: "adam" , "rmsprop", "gradient" # adam for FCN, gradient for CNN
 loss_function_all = ['categorical_crossentropy'] # Other options (from keras defaults or custom) include: 'categorical_crossentropy' ,'mse', 'mae', 'class_mse', 'class_mae'    
-training_epochs_all = [10]
+training_epochs_all = [1000]
     
 # Fully Connected Architecture
 
