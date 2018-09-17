@@ -53,7 +53,7 @@ def read_data(file_path):
     data = pd.read_csv(file_path,header = 0) # This uses the header row (row 0) as the column names
     return data
 
-def windows(data, size): # define time windows to create each training example
+def windows(data, size, sample_stride): # define time windows to create each training example
     start = 0
     while start < data.count():
         yield int(start), int(start + size)
@@ -73,7 +73,7 @@ def segment_signal_FCN_vector(data_inputs, data_full):
     return segments, labels
 
 # Used for CNN/FFCN input WITHOUT SQL pre-processing
-def segment_signal_w_concat(data_inputs, data_full):
+def segment_signal_w_concat(data_inputs, data_full, model_architecture, speed_bucket_size, input_window_size, num_channels, num_anthropometrics, label_window_size, sample_stride):
     # define segment shape for training example input
     if  model_architecture == 'FCN':
         segments = np.empty((0,input_window_size*num_channels + num_anthropometrics))
@@ -82,7 +82,7 @@ def segment_signal_w_concat(data_inputs, data_full):
         segments_timeseries = np.empty((0, input_window_size, num_channels))
         segments_anthro = np.empty((0, num_anthropometrics))
     labels = np.empty((0))
-    for (start, end) in windows(data_full['timestamp'], input_window_size):
+    for (start, end) in windows(data_full['timestamp'], input_window_size, sample_stride):
         a = data_inputs["bounce"][start:end]
         b = data_inputs["braking"][start:end]
         c = data_inputs["cadence"][start:end]
