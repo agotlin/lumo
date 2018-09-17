@@ -257,7 +257,7 @@ def populate_results_performance_table(folder_head_loc,
     
     if  model_architecture == 'FCN':
         if my_file.is_file():
-            print("Found results file")
+            print("Using existing results file: " + results_file_name)
             past_results=pd.read_csv(my_file,header=0)
         else:
             print("no results file found - creating file")

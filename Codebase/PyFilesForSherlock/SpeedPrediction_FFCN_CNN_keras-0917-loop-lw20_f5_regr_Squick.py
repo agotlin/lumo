@@ -79,16 +79,16 @@ if machine_to_run_script == 'local':
 elif machine_to_run_script == 'Sherlock':
     folder_head_loc = '/home/users/agotlin/lumo/'
     folder_data_loc = '/home/users/agotlin/SherlockDataFiles/'
-myFileName = 'TimeSeries_InputRaw_1000Runs_Top10kRowsSample'
+myFileName = 'TimeSeries_InputRaw_1000Runs'
 myFileLocation = folder_data_loc + myFileName + '.csv'
     # Other data files/folders to potentially use:
     # 'TimeSeries_InputVector_100runs'   |   'TimeSeries_InputVector_15runs'
     # 'TimeSeries_InputRaw_1000Runs'  |  'TimeSeries_InputRaw_1000Runs_QuarterSample'  |  'TimeSeries_InputRaw_1000Runs_Top10kRowsSample'
     
 # Training strategy
-batch_size_all = [128] # we used 50 for CNN, 128 for FCN
+batch_size_all = [64, 128] # we used 50 for CNN, 128 for FCN
 learning_rate_all = [0.0001, 0.001] # we used 0.001 for FCN, 0.0001 for CNN
-optimizer_type_all = ['adam'] # options are: "adam" , "rmsprop", "gradient" # adam for FCN, gradient for CNN
+optimizer_type_all = ['adam','gradient'] # options are: "adam" , "rmsprop", "gradient" # adam for FCN, gradient for CNN
 loss_function_all = ['mae'] # Other options (from keras defaults or custom) include: 'categorical_crossentropy' ,'mse', 'mae', 'class_mse', 'class_mae'    
 training_epochs_all = [100]
     

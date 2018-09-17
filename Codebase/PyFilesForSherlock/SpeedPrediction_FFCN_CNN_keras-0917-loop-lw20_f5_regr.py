@@ -86,9 +86,9 @@ myFileLocation = folder_data_loc + myFileName + '.csv'
     # 'TimeSeries_InputRaw_1000Runs'  |  'TimeSeries_InputRaw_1000Runs_QuarterSample'  |  'TimeSeries_InputRaw_1000Runs_Top10kRowsSample'
     
 # Training strategy
-batch_size_all = [128, 256] # we used 50 for CNN, 128 for FCN
+batch_size_all = [64, 128, 256] # we used 50 for CNN, 128 for FCN
 learning_rate_all = [0.0001, 0.001] # we used 0.001 for FCN, 0.0001 for CNN
-optimizer_type_all = ['gradient','adam'] # options are: "adam" , "rmsprop", "gradient" # adam for FCN, gradient for CNN
+optimizer_type_all = ['adam','gradient'] # options are: "adam" , "rmsprop", "gradient" # adam for FCN, gradient for CNN
 loss_function_all = ['mae'] # Other options (from keras defaults or custom) include: 'categorical_crossentropy' ,'mse', 'mae', 'class_mse', 'class_mae'    
 training_epochs_all = [1000]
     
@@ -221,8 +221,8 @@ else:    # if this file does not exist, run segment_signal method and create np 
         labels_to_number = np.unique(labels) # Caches "labels_to_number" in order to use in rmse calculation for classification
         labels = np.asarray(pd.get_dummies(labels), dtype = np.int8) # one-hot labels to classify nearest bucket
         np.save(np_array_file_string_label2num, labels_to_number, allow_pickle=True)
-#     else:
-#         labels_to_number = [0] # A bandaid placeholder to report labels_to_number in confusion matrix script
+    else:
+        labels_to_number = [0] # A bandaid placeholder to report labels_to_number in confusion matrix script
     if  model_architecture == 'FCN':
         np.save(np_array_file_string_segment, segments, allow_pickle=True)
     elif model_architecture == 'CNN':
