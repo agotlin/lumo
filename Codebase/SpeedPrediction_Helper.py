@@ -146,13 +146,14 @@ def create_learning_curves_from_model(machine_to_run_script
         fig, ax1 = plt.subplots()
         lines=[]
 
-        lines += ax1.plot(trainAccuracy_4,'#0e128c', label='Train Accuracy 2', linewidth=1) #'#DAF7A6'
-        lines += ax1.plot(devAccuracy_4,'#a3a4cc', label='Dev Accuracy 2', linewidth=1)# '#33FF00',
         lines += ax1.plot(trainAccuracy_1,'#FF5733', label='Train Accuracy 1', linewidth=1)
         lines += ax1.plot(devAccuracy_1,'#C70039', label='Dev Accuracy 1', linewidth=1)
         lines += ax1.plot(trainAccuracy_2,'#9C27B0', label='Train Accuracy 2', linewidth=1)
         lines += ax1.plot(devAccuracy_2,'#7986CB', label='Dev Accuracy 2', linewidth=1)
-        plt.ylim([0.0, 1.0])  # Surpress this for non-classification tasks
+        if speed_bucket_size != 'none_use_regression':
+            lines += ax1.plot(trainAccuracy_4,'#0e128c', label='Train Accuracy 4', linewidth=1) #'#DAF7A6'
+            lines += ax1.plot(devAccuracy_4,'#a3a4cc', label='Dev Accuracy 4', linewidth=1)# '#33FF00',
+            plt.ylim([0.0, 1.0])  # Surpress this for classification tasks
 
         plt.ylabel('Train vs. Dev Accuracy')
 
@@ -176,7 +177,7 @@ def create_learning_curves_from_model(machine_to_run_script
                                                         loc=2,
                                                         borderaxespad=0.)
 
-        leg = Legend(ax1, lines[0:], ['Train ACC', 'Dev ACC','Train Eval 1','Dev Eval 1'],
+        leg = Legend(ax1, lines[0:], ['T Eval 1','Dev Eval 1','Train Eval 2','Dev Eval 2','T ACC','D ACC'],
                      loc='best', frameon=False)
         ax1.add_artist(leg);
         plt.savefig(folder_head_loc + "Learning Curves/" + str(file_name) + "_AccuracyPerEpoch_Image.png", bbox_inches = "tight")
