@@ -73,7 +73,7 @@ def segment_signal_FCN_vector(data_inputs, data_full):
     return segments, labels
 
 # Used for CNN/FFCN input WITHOUT SQL pre-processing
-def segment_signal_w_concat(data_inputs, data_full, model_architecture, speed_bucket_size, input_window_size, num_channels, num_anthropometrics, label_window_size, sample_stride):
+def segment_signal_w_concat(data_inputs, data_full, model_architecture, speed_bucket_size, input_window_size, num_channels, num_anthropometrics, label_window_size, sample_stride): 
     # define segment shape for training example input
     if  model_architecture == 'FCN':
         segments = np.empty((0,input_window_size*num_channels + num_anthropometrics))
