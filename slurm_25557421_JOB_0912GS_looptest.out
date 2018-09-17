@@ -1,0 +1,224 @@
+sh-09-05
+Already on 'master'
+From https://github.com/agotlin/lumo
+   ebeaaeb..bf31727  master     -> origin/master
+Checking out files:  32% (33/103)   Checking out files:  33% (34/103)   Checking out files:  34% (36/103)   Checking out files:  35% (37/103)   Checking out files:  36% (38/103)   Checking out files:  37% (39/103)   Checking out files:  38% (40/103)   Checking out files:  39% (41/103)   Checking out files:  40% (42/103)   Checking out files:  41% (43/103)   Checking out files:  42% (44/103)   Checking out files:  43% (45/103)   Checking out files:  44% (46/103)   Checking out files:  45% (47/103)   Checking out files:  46% (48/103)   Checking out files:  47% (49/103)   Checking out files:  48% (50/103)   Checking out files:  49% (51/103)   Checking out files:  50% (52/103)   Checking out files:  51% (53/103)   Checking out files:  52% (54/103)   Checking out files:  53% (55/103)   Checking out files:  54% (56/103)   Checking out files:  55% (57/103)   Checking out files:  56% (58/103)   Checking out files:  57% (59/103)   Checking out files:  58% (60/103)   Checking out files:  59% (61/103)   Checking out files:  60% (62/103)   Checking out files:  61% (63/103)   Checking out files:  62% (64/103)   Checking out files:  63% (65/103)   Checking out files:  64% (66/103)   Checking out files:  65% (67/103)   Checking out files:  66% (68/103)   Checking out files:  67% (70/103)   Checking out files:  68% (71/103)   Checking out files:  69% (72/103)   Checking out files:  70% (73/103)   Checking out files:  71% (74/103)   Checking out files:  72% (75/103)   Checking out files:  73% (76/103)   Checking out files:  74% (77/103)   Checking out files:  75% (78/103)   Checking out files:  76% (79/103)   Checking out files:  77% (80/103)   Checking out files:  78% (81/103)   Checking out files:  79% (82/103)   Checking out files:  80% (83/103)   Checking out files:  81% (84/103)   Checking out files:  82% (85/103)   Checking out files:  83% (86/103)   Checking out files:  84% (87/103)   Checking out files:  85% (88/103)   Checking out files:  86% (89/103)   Checking out files:  87% (90/103)   Checking out files:  88% (91/103)   Checking out files:  89% (92/103)   Checking out files:  90% (93/103)   Checking out files:  91% (94/103)   Checking out files:  92% (95/103)   Checking out files:  93% (96/103)   Checking out files:  94% (97/103)   Checking out files:  95% (98/103)   Checking out files:  96% (99/103)   Checking out files:  97% (100/103)   Checking out files:  98% (101/103)   Checking out files:  99% (102/103)   Checking out files: 100% (103/103)   Checking out files: 100% (103/103), done.
+Updating ebeaaeb..bf31727
+Fast-forward
+ ...rediction_FFCN_CNN_keras-Copy1-checkpoint.ipynb |  927 ++++------
+ ...SpeedPrediction_FFCN_CNN_keras-checkpoint.ipynb |  968 +++-------
+ .../SpeedPrediction_Scratch_Code-checkpoint.ipynb  |  253 ++-
+ ...edPrediction_FFCN_CNN_keras_DEP_20180908.ipynb} |    0
+ ...eedPrediction_FFCN_CNN_keras_DEP_20190912.ipynb |  947 ++++++++++
+ .../SpeedPrediction_FFCN_CNN_keras-0912-loop.py    |  518 ++++++
+ .../SpeedPrediction_FFCN_CNN_keras-Copy1.ipynb     | 1250 -------------
+ Codebase/SpeedPrediction_FFCN_CNN_keras.ipynb      |  790 ++++++++
+ Codebase/SpeedPrediction_Helper.py                 |  499 +++++
+ Codebase/SpeedPrediction_Scratch_Code.ipynb        |  253 ++-
+ .../SpeedPrediction_Helper.cpython-36.pyc          |  Bin 0 -> 8924 bytes
+ .../20180912_001427_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 10730 bytes
+ .../20180912_001427_ConfusionMatrix_Image.png      |  Bin 0 -> 13742 bytes
+ .../20180912_003400_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 10730 bytes
+ .../20180912_003400_ConfusionMatrix_Image.png      |  Bin 0 -> 13742 bytes
+ .../20180912_223330_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 10730 bytes
+ .../20180912_223330_ConfusionMatrix_Image.png      |  Bin 0 -> 13742 bytes
+ .../20180912_231319_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 9712 bytes
+ .../20180912_231319_ConfusionMatrix_Image.png      |  Bin 0 -> 11778 bytes
+ .../20180912_231333_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 9726 bytes
+ .../20180912_231333_ConfusionMatrix_Image.png      |  Bin 0 -> 11723 bytes
+ .../20180912_232904_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 10735 bytes
+ .../20180912_232904_ConfusionMatrix_Image.png      |  Bin 0 -> 13509 bytes
+ .../20180912_232915_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 10419 bytes
+ .../20180912_232915_ConfusionMatrix_Image.png      |  Bin 0 -> 12427 bytes
+ .../20180912_232926_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 10414 bytes
+ .../20180912_232926_ConfusionMatrix_Image.png      |  Bin 0 -> 12305 bytes
+ .../20180912_232935_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 9972 bytes
+ .../20180912_232935_ConfusionMatrix_Image.png      |  Bin 0 -> 11612 bytes
+ .../20180912_233030_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 9724 bytes
+ .../20180912_233030_ConfusionMatrix_Image.png      |  Bin 0 -> 11088 bytes
+ .../20180912_233407_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 9696 bytes
+ .../20180912_233407_ConfusionMatrix_Image.png      |  Bin 0 -> 10733 bytes
+ .../20180912_233456_ConfusionMatrix_Data.xlsx      |  Bin 0 -> 9664 bytes
+ .../20180912_233456_ConfusionMatrix_Image.png      |  Bin 0 -> 10494 bytes
+ .../20180911_232346_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180911_232346_AccuracyPerEpoch_Image.png     |  Bin 0 -> 39828 bytes
+ .../20180911_233523_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180911_233523_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180911_234601_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180911_234601_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180911_234828_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180911_234828_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180911_235256_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180911_235256_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180911_235547_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180911_235547_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180912_001208_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_001208_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180912_001427_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_001427_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180912_003400_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_003400_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180912_222936_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_222936_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180912_223330_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_223330_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38796 bytes
+ .../20180912_231319_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_231319_AccuracyPerEpoch_Image.png     |  Bin 0 -> 39158 bytes
+ .../20180912_231333_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_231333_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38272 bytes
+ .../20180912_231346_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_231346_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38561 bytes
+ .../20180912_232756_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_232904_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_232904_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38579 bytes
+ .../20180912_232915_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_232915_AccuracyPerEpoch_Image.png     |  Bin 0 -> 40214 bytes
+ .../20180912_232926_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_232926_AccuracyPerEpoch_Image.png     |  Bin 0 -> 38969 bytes
+ .../20180912_232935_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_232935_AccuracyPerEpoch_Image.png     |  Bin 0 -> 40591 bytes
+ .../20180912_233030_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_233030_AccuracyPerEpoch_Image.png     |  Bin 0 -> 39729 bytes
+ .../20180912_233407_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_233407_AccuracyPerEpoch_Image.png     |  Bin 0 -> 39501 bytes
+ .../20180912_233456_AccuracyPerEpoch_Data.csv      |    4 +
+ .../20180912_233456_AccuracyPerEpoch_Image.png     |  Bin 0 -> 39668 bytes
+ .../20180912_003400_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_231319_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_231333_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_232904_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_232915_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_232926_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_232935_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_233030_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_233407_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_233456_CNN_weights.h5                 |  Bin 0 -> 45328 bytes
+ .../20180912_001427_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_003400_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_223330_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_231319_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_231333_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_232904_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_232915_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_232926_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_232935_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_233030_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_233407_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../20180912_233456_Predictions.csv                | 1901 ++++++++++++++++++++
+ .../Default_Model_Results_Table_20180726_CNN.csv   |   88 +-
+ .../Default_Model_Results_Table_20180911_CNN.csv   |   16 +
+ 102 files changed, 26767 insertions(+), 2642 deletions(-)
+ rename Codebase/DeprecatedCode/{SpeedPrediction_FFCN_CNN_keras.ipynb => SpeedPrediction_FFCN_CNN_keras_DEP_20180908.ipynb} (100%)
+ create mode 100644 Codebase/DeprecatedCode/SpeedPrediction_FFCN_CNN_keras_DEP_20190912.ipynb
+ create mode 100644 Codebase/PyFilesForSherlock/SpeedPrediction_FFCN_CNN_keras-0912-loop.py
+ delete mode 100644 Codebase/SpeedPrediction_FFCN_CNN_keras-Copy1.ipynb
+ create mode 100644 Codebase/SpeedPrediction_FFCN_CNN_keras.ipynb
+ create mode 100644 Codebase/SpeedPrediction_Helper.py
+ create mode 100644 Codebase/__pycache__/SpeedPrediction_Helper.cpython-36.pyc
+ create mode 100644 Confusion Matrices/20180912_001427_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_001427_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_003400_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_003400_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_223330_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_223330_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_231319_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_231319_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_231333_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_231333_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_232904_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_232904_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_232915_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_232915_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_232926_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_232926_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_232935_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_232935_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_233030_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_233030_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_233407_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_233407_ConfusionMatrix_Image.png
+ create mode 100644 Confusion Matrices/20180912_233456_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180912_233456_ConfusionMatrix_Image.png
+ create mode 100644 Learning Curves/20180911_232346_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180911_232346_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180911_233523_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180911_233523_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180911_234601_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180911_234601_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180911_234828_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180911_234828_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180911_235256_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180911_235256_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180911_235547_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180911_235547_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_001208_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_001208_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_001427_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_001427_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_003400_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_003400_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_222936_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_222936_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_223330_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_223330_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_231319_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_231319_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_231333_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_231333_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_231346_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_231346_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_232756_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_232904_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_232904_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_232915_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_232915_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_232926_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_232926_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_232935_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_232935_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_233030_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_233030_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_233407_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_233407_AccuracyPerEpoch_Image.png
+ create mode 100644 Learning Curves/20180912_233456_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180912_233456_AccuracyPerEpoch_Image.png
+ create mode 100644 Model Final Parameters/20180912_003400_CNN_weights.h5
+ create mode 100644 Model Final Parameters/20180912_231319_CNN_weights.h5
+ create mode 100644 Model Final Parameters/20180912_231333_CNN_weights.h5
+ create mode 100644 Model Final Parameters/20180912_232904_CNN_weights.h5
+ create mode 100644 Model Final Parameters/20180912_232915_CNN_weights.h5
+ create mode 100644 Model Final Parameters/20180912_232926_CNN_weights.h5
+ create mode 100644 Model Final Parameters/20180912_232935_CNN_weights.h5
+ create mode 100644 Model Final Parameters/20180912_233030_CNN_weights.h5
+ create mode 100644 Model Final Parameters/20180912_233407_CNN_weights.h5
+ create mode 100644 Model Final Parameters/20180912_233456_CNN_weights.h5
+ create mode 100644 Model Final Predictions/20180912_001427_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_003400_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_223330_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_231319_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_231333_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_232904_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_232915_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_232926_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_232935_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_233030_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_233407_Predictions.csv
+ create mode 100644 Model Final Predictions/20180912_233456_Predictions.csv
+ create mode 100644 Model Performance Tables/Default_Model_Results_Table_20180911_CNN.csv
+Switched to a new branch 'JOB_0912GS_looptest'
+Using TensorFlow backend.
+Script is starting!
+Successfully loaded keras!
+Traceback (most recent call last):
+  File "SpeedPrediction_FFCN_CNN_keras-0912-loop.py", line 150, in <module>
+    from SpeedPrediction_Helper import *
+ModuleNotFoundError: No module named 'SpeedPrediction_Helper'
+store
+# On branch JOB_0912GS_looptest
+nothing to commit, working directory clean
+remote: 
+remote: Create a pull request for 'JOB_0912GS_looptest' on GitHub by visiting:[K
+remote:      https://github.com/agotlin/lumo/pull/new/JOB_0912GS_looptest[K
+remote: 
+To https://github.com/agotlin/lumo
+ * [new branch]      JOB_0912GS_looptest -> JOB_0912GS_looptest

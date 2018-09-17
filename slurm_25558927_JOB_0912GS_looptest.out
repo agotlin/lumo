@@ -1,0 +1,128 @@
+sh-113-14
+Already on 'master'
+Already up-to-date.
+fatal: A branch named 'JOB_0912GS_looptest' already exists.
+2018-09-12 17:30:51.963286: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-09-12 17:30:52.299830: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1392] Found device 0 with properties: 
+name: Tesla V100-SXM2-16GB major: 7 minor: 0 memoryClockRate(GHz): 1.53
+pciBusID: 0000:08:00.0
+totalMemory: 15.78GiB freeMemory: 15.37GiB
+2018-09-12 17:30:52.299887: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1471] Adding visible gpu devices: 0
+2018-09-12 17:30:52.720556: I tensorflow/core/common_runtime/gpu/gpu_device.cc:952] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-09-12 17:30:52.720599: I tensorflow/core/common_runtime/gpu/gpu_device.cc:958]      0 
+2018-09-12 17:30:52.720607: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   N 
+2018-09-12 17:30:52.720967: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1084] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14880 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:08:00.0, compute capability: 7.0)
+Using TensorFlow backend.
+/home/users/agotlin/lumo/Codebase/PyFilesForSherlock/SpeedPrediction_Helper.py:494: FutureWarning: Sorting because non-concatenation axis is not aligned. A future version
+of pandas will change to not sort by default.
+
+To accept the future behavior, pass 'sort=True'.
+
+To retain the current behavior and silence the warning, pass sort=False
+
+  past_results=pd.concat([past_results,df])          # , sort=True doesnt work between bersion, so do not add
+Script is starting!
+Successfully loaded keras!
+Successfuly normalized data!
+Pulling down /home/users/agotlin/SherlockDataFiles/SavedNPArrays/TimeSeries_InputRaw_1000Runs_QuarterSample_CNN_26_20_13.0_label.npy
+Successfully preprocessed data!
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_1 (InputLayer)            (None, 26, 6)        0                                            
+__________________________________________________________________________________________________
+conv1d_1 (Conv1D)               (None, 22, 40)       1240        input_1[0][0]                    
+__________________________________________________________________________________________________
+max_pooling1d_1 (MaxPooling1D)  (None, 9, 40)        0           conv1d_1[0][0]                   
+__________________________________________________________________________________________________
+conv1d_2 (Conv1D)               (None, 5, 4)         804         max_pooling1d_1[0][0]            
+__________________________________________________________________________________________________
+flatten_1 (Flatten)             (None, 20)           0           conv1d_2[0][0]                   
+__________________________________________________________________________________________________
+input_2 (InputLayer)            (None, 4)            0                                            
+__________________________________________________________________________________________________
+concatenate_1 (Concatenate)     (None, 24)           0           flatten_1[0][0]                  
+                                                                 input_2[0][0]                    
+__________________________________________________________________________________________________
+dense_1 (Dense)                 (None, 50)           1250        concatenate_1[0][0]              
+__________________________________________________________________________________________________
+dense_2 (Dense)                 (None, 46)           2346        dense_1[0][0]                    
+==================================================================================================
+Total params: 5,640
+Trainable params: 5,640
+Non-trainable params: 0
+__________________________________________________________________________________________________
+Starting to train model 20180913_003051: bs=64, lr=0.0001, opt=gradient, lf=categorical_crossentropy, epochs=3
+Finished training model 20180913_003051!
+Found results file
+Successfully created plots and figures for model 20180913_003051
+Starting to train model 20180913_003106: bs=64, lr=0.0001, opt=adam, lf=categorical_crossentropy, epochs=3
+Finished training model 20180913_003106!
+Found results file
+Successfully created plots and figures for model 20180913_003106
+Starting to train model 20180913_003112: bs=64, lr=0.001, opt=gradient, lf=categorical_crossentropy, epochs=3
+Finished training model 20180913_003112!
+Found results file
+Successfully created plots and figures for model 20180913_003112
+Starting to train model 20180913_003117: bs=64, lr=0.001, opt=adam, lf=categorical_crossentropy, epochs=3
+Finished training model 20180913_003117!
+Found results file
+Successfully created plots and figures for model 20180913_003117
+Starting to train model 20180913_003123: bs=128, lr=0.0001, opt=gradient, lf=categorical_crossentropy, epochs=3
+Finished training model 20180913_003123!
+Found results file
+Successfully created plots and figures for model 20180913_003123
+Starting to train model 20180913_003126: bs=128, lr=0.0001, opt=adam, lf=categorical_crossentropy, epochs=3
+Finished training model 20180913_003126!
+Found results file
+Successfully created plots and figures for model 20180913_003126
+Starting to train model 20180913_003130: bs=128, lr=0.001, opt=gradient, lf=categorical_crossentropy, epochs=3
+Finished training model 20180913_003130!
+Found results file
+Successfully created plots and figures for model 20180913_003130
+Starting to train model 20180913_003133: bs=128, lr=0.001, opt=adam, lf=categorical_crossentropy, epochs=3
+Finished training model 20180913_003133!
+Found results file
+Successfully created plots and figures for model 20180913_003133
+Completed all training runs!
+store
+[master e83be83] MESSAGE
+ Committer: Adam Gotlin <agotlin@sh-113-14.int>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 26 files changed, 15249 insertions(+), 1 deletion(-)
+ create mode 100644 Codebase/PyFilesForSherlock/__pycache__/SpeedPrediction_Helper.cpython-36.pyc
+ create mode 100644 Confusion Matrices/20180913_003051_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_003106_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_003112_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_003117_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_003123_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_003126_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_003130_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_003133_ConfusionMatrix_Data.xlsx
+ create mode 100644 Learning Curves/20180913_003051_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_003106_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_003112_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_003117_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_003123_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_003126_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_003130_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_003133_AccuracyPerEpoch_Data.csv
+ create mode 100644 Model Final Predictions/20180913_003051_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_003106_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_003112_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_003117_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_003123_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_003126_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_003130_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_003133_Predictions.csv
+Everything up-to-date

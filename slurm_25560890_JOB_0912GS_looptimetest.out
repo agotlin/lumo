@@ -1,0 +1,209 @@
+sh-113-14
+Already on 'master'
+From https://github.com/agotlin/lumo
+   e83be83..7c80f8a  master     -> origin/master
+Updating e83be83..7c80f8a
+Fast-forward
+ ...dPrediction_FFCN_CNN_keras-0912-loop_lw20_f5.py | 518 +++++++++++++++++++++
+ Codebase/SpeedPrediction_Helper.py                 |   2 +
+ 2 files changed, 520 insertions(+)
+ create mode 100644 Codebase/PyFilesForSherlock/SpeedPrediction_FFCN_CNN_keras-0912-loop_lw20_f5.py
+Switched to a new branch 'JOB_0912GS_loopttimetest'
+2018-09-12 17:53:51.979337: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-09-12 17:53:52.377070: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1392] Found device 0 with properties: 
+name: Tesla V100-SXM2-16GB major: 7 minor: 0 memoryClockRate(GHz): 1.53
+pciBusID: 0000:04:00.0
+totalMemory: 15.78GiB freeMemory: 15.37GiB
+2018-09-12 17:53:52.377112: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1471] Adding visible gpu devices: 0
+2018-09-12 17:53:52.780362: I tensorflow/core/common_runtime/gpu/gpu_device.cc:952] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-09-12 17:53:52.780410: I tensorflow/core/common_runtime/gpu/gpu_device.cc:958]      0 
+2018-09-12 17:53:52.780418: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   N 
+2018-09-12 17:53:52.780749: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1084] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14880 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:04:00.0, compute capability: 7.0)
+Using TensorFlow backend.
+/home/users/agotlin/lumo/Codebase/PyFilesForSherlock/SpeedPrediction_Helper.py:494: FutureWarning: Sorting because non-concatenation axis is not aligned. A future version
+of pandas will change to not sort by default.
+
+To accept the future behavior, pass 'sort=True'.
+
+To retain the current behavior and silence the warning, pass sort=False
+
+  past_results=pd.concat([past_results,df])          # , sort=True doesnt work between bersion, so do not add
+Script is starting!
+Successfully loaded keras!
+Successfuly normalized data!
+Pulling down /home/users/agotlin/SherlockDataFiles/SavedNPArrays/TimeSeries_InputRaw_1000Runs_CNN_26_20_13.0_label.npy
+Successfully preprocessed data!
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_1 (InputLayer)            (None, 26, 6)        0                                            
+__________________________________________________________________________________________________
+conv1d_1 (Conv1D)               (None, 22, 40)       1240        input_1[0][0]                    
+__________________________________________________________________________________________________
+max_pooling1d_1 (MaxPooling1D)  (None, 9, 40)        0           conv1d_1[0][0]                   
+__________________________________________________________________________________________________
+conv1d_2 (Conv1D)               (None, 5, 4)         804         max_pooling1d_1[0][0]            
+__________________________________________________________________________________________________
+flatten_1 (Flatten)             (None, 20)           0           conv1d_2[0][0]                   
+__________________________________________________________________________________________________
+input_2 (InputLayer)            (None, 4)            0                                            
+__________________________________________________________________________________________________
+concatenate_1 (Concatenate)     (None, 24)           0           flatten_1[0][0]                  
+                                                                 input_2[0][0]                    
+__________________________________________________________________________________________________
+dense_1 (Dense)                 (None, 50)           1250        concatenate_1[0][0]              
+__________________________________________________________________________________________________
+dense_2 (Dense)                 (None, 52)           2652        dense_1[0][0]                    
+==================================================================================================
+Total params: 5,946
+Trainable params: 5,946
+Non-trainable params: 0
+__________________________________________________________________________________________________
+Starting to train model 20180913_005351: bs=64, lr=0.0001, opt=gradient, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_005351!
+Found results file
+Successfully created plots and figures for model 20180913_005351
+Starting to train model 20180913_005519: bs=64, lr=0.0001, opt=adam, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_005519!
+Found results file
+Successfully created plots and figures for model 20180913_005519
+Starting to train model 20180913_005647: bs=64, lr=0.001, opt=gradient, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_005647!
+Found results file
+Successfully created plots and figures for model 20180913_005647
+Starting to train model 20180913_005805: bs=64, lr=0.001, opt=adam, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_005805!
+Found results file
+Successfully created plots and figures for model 20180913_005805
+Starting to train model 20180913_005933: bs=64, lr=0.0005, opt=gradient, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_005933!
+Found results file
+Successfully created plots and figures for model 20180913_005933
+Starting to train model 20180913_010052: bs=64, lr=0.0005, opt=adam, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010052!
+Found results file
+Successfully created plots and figures for model 20180913_010052
+Starting to train model 20180913_010226: bs=128, lr=0.0001, opt=gradient, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010226!
+Found results file
+Successfully created plots and figures for model 20180913_010226
+Starting to train model 20180913_010311: bs=128, lr=0.0001, opt=adam, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010311!
+Found results file
+Successfully created plots and figures for model 20180913_010311
+Starting to train model 20180913_010402: bs=128, lr=0.001, opt=gradient, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010402!
+Found results file
+Successfully created plots and figures for model 20180913_010402
+Starting to train model 20180913_010447: bs=128, lr=0.001, opt=adam, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010447!
+Found results file
+Successfully created plots and figures for model 20180913_010447
+Starting to train model 20180913_010537: bs=128, lr=0.0005, opt=gradient, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010537!
+Found results file
+Successfully created plots and figures for model 20180913_010537
+Starting to train model 20180913_010623: bs=128, lr=0.0005, opt=adam, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010623!
+Found results file
+Successfully created plots and figures for model 20180913_010623
+Starting to train model 20180913_010714: bs=256, lr=0.0001, opt=gradient, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010714!
+Found results file
+Successfully created plots and figures for model 20180913_010714
+Starting to train model 20180913_010738: bs=256, lr=0.0001, opt=adam, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010738!
+Found results file
+Successfully created plots and figures for model 20180913_010738
+Starting to train model 20180913_010806: bs=256, lr=0.001, opt=gradient, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010806!
+Found results file
+Successfully created plots and figures for model 20180913_010806
+Starting to train model 20180913_010831: bs=256, lr=0.001, opt=adam, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010831!
+Found results file
+Successfully created plots and figures for model 20180913_010831
+Starting to train model 20180913_010859: bs=256, lr=0.0005, opt=gradient, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010859!
+Found results file
+Successfully created plots and figures for model 20180913_010859
+Starting to train model 20180913_010924: bs=256, lr=0.0005, opt=adam, lf=categorical_crossentropy, epochs=10
+Finished training model 20180913_010924!
+Found results file
+Successfully created plots and figures for model 20180913_010924
+Completed all training runs!
+store
+[JOB_0912GS_loopttimetest d1418b7] MESSAGE
+ Committer: Adam Gotlin <agotlin@sh-113-14.int>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 55 files changed, 214634 insertions(+), 2 deletions(-)
+ create mode 100644 Confusion Matrices/20180913_005351_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_005519_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_005647_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_005805_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_005933_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010052_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010226_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010311_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010402_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010447_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010537_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010623_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010714_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010738_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010806_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010831_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010859_ConfusionMatrix_Data.xlsx
+ create mode 100644 Confusion Matrices/20180913_010924_ConfusionMatrix_Data.xlsx
+ create mode 100644 Learning Curves/20180913_005351_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_005519_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_005647_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_005805_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_005933_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010052_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010226_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010311_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010402_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010447_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010537_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010623_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010714_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010738_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010806_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010831_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010859_AccuracyPerEpoch_Data.csv
+ create mode 100644 Learning Curves/20180913_010924_AccuracyPerEpoch_Data.csv
+ create mode 100644 Model Final Predictions/20180913_005351_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_005519_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_005647_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_005805_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_005933_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010052_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010226_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010311_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010402_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010447_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010537_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010623_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010714_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010738_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010806_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010831_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010859_Predictions.csv
+ create mode 100644 Model Final Predictions/20180913_010924_Predictions.csv
+remote: 
+remote: Create a pull request for 'JOB_0912GS_loopttimetest' on GitHub by visiting:[K
+remote:      https://github.com/agotlin/lumo/pull/new/JOB_0912GS_loopttimetest[K
+remote: 
+To https://github.com/agotlin/lumo
+ * [new branch]      JOB_0912GS_loopttimetest -> JOB_0912GS_loopttimetest
