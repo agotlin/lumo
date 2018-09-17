@@ -221,8 +221,8 @@ else:    # if this file does not exist, run segment_signal method and create np 
         labels_to_number = np.unique(labels) # Caches "labels_to_number" in order to use in rmse calculation for classification
         labels = np.asarray(pd.get_dummies(labels), dtype = np.int8) # one-hot labels to classify nearest bucket
         np.save(np_array_file_string_label2num, labels_to_number, allow_pickle=True)
-#     else:
-#         labels_to_number = [0] # A bandaid placeholder to report labels_to_number in confusion matrix script
+    else:
+        labels_to_number = [0] # A bandaid placeholder to report labels_to_number in confusion matrix script
     if  model_architecture == 'FCN':
         np.save(np_array_file_string_segment, segments, allow_pickle=True)
     elif model_architecture == 'CNN':
