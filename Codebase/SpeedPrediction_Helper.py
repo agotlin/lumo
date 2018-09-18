@@ -186,19 +186,25 @@ def create_learning_curves_from_model(machine_to_run_script
 
 
 # Create Confusion Matrix
-
 def create_conf_matrix_from_model(machine_to_run_script
-        ,y_true_argmax
-        ,y_pred_argmax
+        ,y_test
+        ,y_pred
         ,folder_head_loc
-        ,file_name):
+        ,file_name
+        ,speed_bucket_size):
+    if speed_bucket_size != 'none_use_regression':
+        y_pred_argmax = np.argmax(y_pred, axis=1)
+        y_true_argmax = np.argmax(y_test, axis=1)  
+    else: # in regression, no argmax is needed
+        y_pred_argmax = y_pred.flatten()
+        y_true_argmax = y_test 
     # Plot results
     if machine_to_run_script == 'local':
         plt.scatter(y_true_argmax, y_pred_argmax, s=3, alpha=0.3)
         plt.scatter(y_true_argmax, y_true_argmax, s=3, alpha=1)
         #plt.scatter(y_true, y_pred, s=3, alpha=0.3) # For regression
-        plt.xlim([0,50])
-        plt.ylim([0,50])
+        plt.xlim([0,y_pred_argmax.max()])
+        plt.ylim([0,y_pred_argmax.max()])
         plt.xlabel('Y_True')
         plt.ylabel('Y_Prediction')
         plt.savefig(folder_head_loc + "Confusion Matrices/" + str(file_name) + "_ConfusionMatrix_Image.png")
@@ -209,10 +215,11 @@ def create_conf_matrix_from_model(machine_to_run_script
     filepath_predictions = folder_head_loc + "Model Final Predictions/" + str(file_name) + "_Predictions" + ".csv"
     df_y_trueVy_pred.to_csv(filepath_predictions, header = ["y_true_argmax", "y_pred_argmax"], index=False)
     # Create and save a confusion matrix
-    cm = confusion_matrix(y_true_argmax, y_pred_argmax)
-    df_cm = pd.DataFrame (cm)
-    filepath_cm = folder_head_loc + "Confusion Matrices/" + str(file_name) + "_ConfusionMatrix_Data.xlsx"
-    df_cm.to_excel(filepath_cm, index=False)
+    if speed_bucket_size != 'none_use_regression':
+        cm = confusion_matrix(y_true_argmax, y_pred_argmax)
+        df_cm = pd.DataFrame (cm)
+        filepath_cm = folder_head_loc + "Confusion Matrices/" + str(file_name) + "_ConfusionMatrix_Data.xlsx"
+        df_cm.to_excel(filepath_cm, index=False)
                                       
                                       
                                       
