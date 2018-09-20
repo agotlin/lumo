@@ -93,7 +93,10 @@ def segment_signal_w_concat(data_inputs, data_full, model_architecture, speed_bu
         bb = data_inputs["weight"][start]
         cc = data_inputs["height"][start]
         dd = data_inputs["gender"][start]   
-        if(end < data_full.shape[0] and len(data_full['timestamp'][start:end]) == input_window_size and data_full['activity_id'][start]==data_full['activity_id'][end]):
+        if(end < data_full.shape[0] and 
+            len(data_full['timestamp'][start:end]) == input_window_size and 
+            data_full['activity_id'][start]==data_full['activity_id'][end] and 
+            not np.any(data_full['precededbynulls'][start:end] == 1)):
             # Create segment input arrays
             if  model_architecture == 'FCN':
                 segments_toadd = np.vstack([np.dstack([a,b,c,d,e,f])])
