@@ -73,7 +73,7 @@ def segment_signal_FCN_vector(data_inputs, data_full):
     return segments, labels
 
 # Used for CNN/FFCN input WITHOUT SQL pre-processing
-def segment_signal_w_concat(data_inputs, data_full, model_architecture, speed_bucket_size, input_window_size, num_channels, num_anthropometrics, label_window_size, sample_stride): 
+def segment_signal_w_concat(data_inputs, data_full, model_architecture, speed_bucket_size, input_window_size, num_channels, num_anthropometrics, label_window_size, sample_stride, speed_minimum): 
     # define segment shape for training example input
     if  model_architecture == 'FCN':
         segments = np.empty((0,input_window_size*num_channels + num_anthropometrics))
@@ -93,10 +93,13 @@ def segment_signal_w_concat(data_inputs, data_full, model_architecture, speed_bu
         bb = data_inputs["weight"][start]
         cc = data_inputs["height"][start]
         dd = data_inputs["gender"][start]   
+        start_labeling = np.int(np.floor(start+(end-start)/2) - np.floor(label_window_size/2))
+        end_labeling = start_labeling + label_window_size     
         if(end < data_full.shape[0] and 
             len(data_full['timestamp'][start:end]) == input_window_size and 
             data_full['activity_id'][start]==data_full['activity_id'][end] and 
-            not np.any(data_full['precededbynulls'][start:end] == 1)):
+            not np.any(data_full['precededbynulls'][start:end] == 1) and
+            np.mean(data_full["gps_speed_true"][start_labeling:end_labeling] > speed_minimum)): # speed must be greater than speed_minimum to be considered as a training example
             # Create segment input arrays
             if  model_architecture == 'FCN':
                 segments_toadd = np.vstack([np.dstack([a,b,c,d,e,f])])
@@ -106,8 +109,8 @@ def segment_signal_w_concat(data_inputs, data_full, model_architecture, speed_bu
                 segments_timeseries = np.vstack([segments_timeseries,np.dstack([a,b,c,d,e,f])])
                 segments_anthro = np.vstack([segments_anthro,np.hstack([aa,bb,cc,dd])])
             # Create labels array
-            start_labeling = np.int(np.floor(start+(end-start)/2) - np.floor(label_window_size/2))
-            end_labeling = start_labeling + label_window_size
+#             start_labeling = np.int(np.floor(start+(end-start)/2) - np.floor(label_window_size/2))
+#             end_labeling = start_labeling + label_window_size
             if speed_bucket_size == '0.1':
                 labels = np.append(labels,np.around(np.mean(data_full["gps_speed_true"][start_labeling:end_labeling]),decimals=1)) # round to nearest decimal
             elif speed_bucket_size == 'none_use_regression':
