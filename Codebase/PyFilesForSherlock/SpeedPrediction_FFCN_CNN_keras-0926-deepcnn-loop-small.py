@@ -8,7 +8,7 @@
 # In[1]:
 
 
-machine_to_run_script = 'local' # 'Sherlock', 'local'
+machine_to_run_script = 'Sherlock' # 'Sherlock', 'local'
 
 
 # # Load dependencies
@@ -79,7 +79,7 @@ if machine_to_run_script == 'local':
 elif machine_to_run_script == 'Sherlock':
     folder_head_loc = '/home/users/agotlin/lumo/'
     folder_data_loc = '/home/users/agotlin/SherlockDataFiles/'
-myFileName = 'TimeSeries_InputwNullConcat_100runs'
+myFileName = 'TimeSeries_InputwNullConcat_2000runs'
 myFileLocation = folder_data_loc + myFileName + '.csv'
     # Other data files/foldgers to potentially use:
     # 'TimeSeries_InputVector_100runs'   |   'TimeSeries_InputVector_15runs'
@@ -91,7 +91,7 @@ batch_size_all = [64] # we used 50 for CNN, 128 for FCN
 learning_rate_all = [0.0001,0.001] # we used 0.001 for FCN, 0.0001 for CNN
 optimizer_type_all = ['adam'] # options are: "adam" , "rmsprop", "gradient" # adam for FCN, gradient for CNN
 loss_function_all = ['mae'] # Other options (from keras defaults or custom) include: 'categorical_crossentropy' ,'mse', 'mae', 'class_mse', 'class_mae'    
-training_epochs_all = [10]
+training_epochs_all = [1000]
     
 # Fully Connected Architecture
 
