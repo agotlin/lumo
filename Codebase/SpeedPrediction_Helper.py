@@ -99,7 +99,7 @@ def segment_signal_w_concat(data_inputs, data_full, model_architecture, speed_bu
             len(data_full['timestamp'][start:end]) == input_window_size and 
             data_full['activity_id'][start]==data_full['activity_id'][end] and 
             not np.any(data_full['precededbynulls'][start:end] == 1) and
-            np.mean(data_full["gps_speed_true"][start_labeling:end_labeling] > speed_minimum)): # speed must be greater than speed_minimum to be considered as a training example
+            np.mean(data_full["gps_speed_true"][start_labeling:end_labeling]) > speed_minimum): # speed must be greater than speed_minimum to be considered as a training example
             # Create segment input arrays
             if  model_architecture == 'FCN':
                 segments_toadd = np.vstack([np.dstack([a,b,c,d,e,f])])
